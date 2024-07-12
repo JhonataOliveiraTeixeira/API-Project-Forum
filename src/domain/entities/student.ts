@@ -4,13 +4,6 @@ interface StudenteProps{
     name:string
 }
 
-export class Student extends Entity {
-    public name: string
+export class Student extends Entity<StudenteProps> {
 
-
-    constructor(props:StudenteProps, id?: string){
-        super(id)
-        this.name= props.name
-
-    }
 }
