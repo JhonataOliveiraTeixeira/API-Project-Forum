@@ -39,6 +39,15 @@ export class Answer extends Entity<Answerprops> {
         .concat('...')
     }
 
+    private touch(){
+        this.props.updateAt = new Date()
+    }
+
+    set content(content: string){
+        this.props.content = content
+        this.touch()
+    }
+
     static create(props: Optional< Answerprops, 'createAt'>, id?: UniqueEntityID){
         const answer = new Answer({
             ...props,

@@ -44,10 +44,36 @@ export class Question extends Entity<QuestionProps> {
     // get isNew(): boolean {
     //     return dayjs().diff(this.createAt) <= 3
     // }
+    get excerpt(){
+        return this.content
+        .substring(0, 120)
+        .trimEnd()
+        .concat('...')
+    }
 
-    static create(props: Optional< QuestionProps, 'createAt'>, id?: UniqueEntityID){
+    private touch(){
+        this.props.updateAt = new Date()
+    }
+    
+    set title(title: string){
+        this.props.title = title
+        this.props.slug = Slug.createFromText(title)
+        this.touch()
+    }
+
+    set content(content: string){
+        this.props.content = content
+        this.touch()
+    }
+    set bestAnswerId(bestAnswerId: UniqueEntityID | undefined){
+        this.props.bestAnswerId = bestAnswerId
+        this.touch()
+    }
+
+    static create(props: Optional< QuestionProps, 'createAt'| 'slug'>, id?: UniqueEntityID){
         const question = new Question({
             ...props,
+            slug: props.slug ?? Slug.createFromText(props.title),
             createAt: new Date()
         }, id)
 
