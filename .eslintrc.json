@@ -6,7 +6,8 @@
     "rules": {
         "no-useless-constructor": "off",
         "no-unused-vars": "off",
-        "eslint-plugin-vue/no-unused-vars": "off"
+        "eslint-plugin-vue/no-unused-vars": "off",
+        "prettier/prettier": "off"
     }
     // "env": {
     //     "vitest-globals/env": true
