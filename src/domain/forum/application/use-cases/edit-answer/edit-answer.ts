@@ -34,7 +34,7 @@ export class EditAnswerUseCase {
    await this.answerRepository.save(answer)
 
 
-   return {}
+   return { answer }
 
   }
 }
