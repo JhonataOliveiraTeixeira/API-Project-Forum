@@ -13,7 +13,7 @@ describe('Comment On Question',()=>{
 
     beforeEach(()=>{
 
-        inMemoryQuestionCommentRepositoy = new InMemoryQuestionCommentRepository()
+        inMemoryQuestionCommentRepositoy = new InMemoryQuestionCommentRepository
         inMemoryQuestionRepository = new InMemoryQuestionRepository()
         sut = new CommentOnQuestionUseCase(inMemoryQuestionRepository, inMemoryQuestionCommentRepositoy)
 
