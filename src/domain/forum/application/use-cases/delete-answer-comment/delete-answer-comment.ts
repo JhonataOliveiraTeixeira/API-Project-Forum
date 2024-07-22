@@ -8,7 +8,7 @@ interface DeleteCommentOnAnswerUseCaseRequest {
     answerCommentId: string
 }
 
-type DeleteCommentOnAnswerUseCaseResponse = Either<ResourceNotFoundError , {}>
+type DeleteCommentOnAnswerUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError, {}>
 
 export class DeleteCommentOnAnswerUseCase {
   constructor(

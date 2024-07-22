@@ -1,14 +1,15 @@
 import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { AnswerRepository } from '../../repositories/answres-repository'
+import { Either, right } from '@/core/either'
 
 interface FecthQuestionAnswersRequest {
     page: number
     questionId: string
 }
 
-interface FecthQuestionAnswersResponse {
-    answers: Answer[]
-}
+type FecthQuestionAnswersResponse = Either<null, {
+  answers: Answer[]
+}>
 
 export class FecthQuestionAnswersUseCase {
   constructor(private answerRepository: AnswerRepository) {}
@@ -22,9 +23,7 @@ export class FecthQuestionAnswersUseCase {
    const answers= await this.answerRepository.findByQuestionId(questionId,{ page})
 
 
-   return {
-    answers
-   }
+   return right({answers})
 
   }
 }

@@ -24,13 +24,13 @@ describe('Fetch recent Answers',()=>{
         await inMemoryAnswerRepository.create(makeAnswer({ questionId: new UniqueEntityID('12')}))
 
 
-        const {answers} = await sut.execute({
+        const answers = await sut.execute({
             questionId: '12',
             page: 1
         })
 
 
-        expect(answers).toHaveLength(3)
+        expect(answers.value?.answers).toHaveLength(3)
 
       })
 
@@ -43,13 +43,13 @@ describe('Fetch recent Answers',()=>{
 
 
 
-        const {answers} = await sut.execute({
+        const answers = await sut.execute({
             questionId: '32',
             page: 2
         })
 
 
-        expect(answers).toHaveLength(1)
+        expect(answers.value?.answers).toHaveLength(1)
 
       })
 
