@@ -23,12 +23,11 @@ describe('Create Question',()=>{
           content: 'Nova pergunta conteúdo',
           attachmentsIds: ['1', '2']
         })
-        console.log(inMemoryQuestionRepository.items[0].attachments)
       
         expect(question.isRight()).toBeTruthy()
         expect(inMemoryQuestionRepository.items[0].id).toEqual(question.value?.question.id)
-        expect(inMemoryQuestionRepository.items[0].attachments).toHaveLength(2)
-        expect(inMemoryQuestionRepository.items[0].attachments).toEqual([
+        expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toHaveLength(2)
+        expect(inMemoryQuestionRepository.items[0].attachments.currentItems).toEqual([
           expect.objectContaining({attachmentId: new UniqueEntityID('1')}),
           expect.objectContaining({attachmentId: new UniqueEntityID('2')}),
         ])
