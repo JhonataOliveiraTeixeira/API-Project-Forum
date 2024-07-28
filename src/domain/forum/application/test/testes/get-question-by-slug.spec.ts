@@ -3,7 +3,10 @@ import { InMemoryQuestionRepository } from '../repositories/in-memory-question-r
 import { GetQuestionBySlugUseCase } from '../../use-cases/get-question-by-slug/get-question-by-slug'
 import { makeQuestion } from '../factories/make-question'
 import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
+import { InMemoryQuestionAttachmentRepository } from '../repositories/in-memory-question-attachment-repository'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let inmemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentRepository
 let inMemoryQuestionRepository: InMemoryQuestionRepository
 let sut : GetQuestionBySlugUseCase
 
@@ -11,7 +14,7 @@ describe('Get Question By Slug',()=>{
 
     beforeEach(()=>{
 
-        inMemoryQuestionRepository = new InMemoryQuestionRepository()
+        inMemoryQuestionRepository = new InMemoryQuestionRepository(inmemoryQuestionAttachmentRepository= new InMemoryQuestionAttachmentRepository())
         sut = new GetQuestionBySlugUseCase(inMemoryQuestionRepository)
 
     })
@@ -28,7 +31,11 @@ describe('Get Question By Slug',()=>{
         })
       
         expect(result.value).toBeTruthy()
-        // expect(result.value).toEqual(newQuestion.title)
+        expect(result.value).toMatchObject({
+            question: expect.objectContaining({
+                title: newQuestion.title
+            })
+        })
 
       })
 

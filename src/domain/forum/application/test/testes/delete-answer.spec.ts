@@ -4,15 +4,18 @@ import { makeAnswer } from '../factories/make-answer'
 import { DeleteAnswerUseCase } from '../../use-cases/delete-answer/delete-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '../../errors/not-allowed-error'
+import { InMemoryAnswerAttachmentRepository } from '../repositories/in-memory-answer-attachment-repository'
+import { makeAnswerAttachment } from '../factories/make-answer-attachment'
 
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentRepository
 let inMemoryAnswernRepository: InMemoryAnswerRepository
 let sut : DeleteAnswerUseCase
 
 describe('Delete Answern',()=>{
 
     beforeEach(()=>{
-
-        inMemoryAnswernRepository = new InMemoryAnswerRepository()
+        
+        inMemoryAnswernRepository = new InMemoryAnswerRepository(inMemoryAnswerAttachmentsRepository= new InMemoryAnswerAttachmentRepository())
         sut = new DeleteAnswerUseCase(inMemoryAnswernRepository)
 
     })
@@ -25,6 +28,18 @@ describe('Delete Answern',()=>{
             new UniqueEntityID('answern-1')
         )
         inMemoryAnswernRepository.create(newAnswern)
+
+        inMemoryAnswerAttachmentsRepository.items.push(
+            makeAnswerAttachment({
+                answerId: newAnswern.id,
+                attachmentId: new UniqueEntityID('1')
+            }),
+            makeAnswerAttachment({
+                answerId: newAnswern.id,
+                attachmentId: new UniqueEntityID('2')
+            })
+
+        )
       
         await sut.execute({
             answerId: 'answern-1',
@@ -32,6 +47,7 @@ describe('Delete Answern',()=>{
         })
       
         expect(inMemoryAnswernRepository.items).toHaveLength(0)
+        expect(inMemoryAnswerAttachmentsRepository.items).toHaveLength(0)
 
       })
 
@@ -44,13 +60,13 @@ describe('Delete Answern',()=>{
         )
         inMemoryAnswernRepository.create(newAnswern)
       
-        const question = await sut.execute({
+        const answer = await sut.execute({
             answerId: 'answern-1',
             authorId: '2'
         })
       
-        expect(question.isLeft()).toBe(true)
-        expect(question.value).instanceOf(NotAllowedError)
+        expect(answer.isLeft()).toBe(true)
+        expect(answer.value).instanceOf(NotAllowedError)
       })
 
 } )

@@ -2,15 +2,18 @@ import { expect, describe, beforeEach, it } from 'vitest'
 import { CreateQuestionUseCase } from '../../use-cases/create-question/create-question'
 import { InMemoryQuestionRepository } from '../repositories/in-memory-question-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { InMemoryQuestionAttachmentRepository } from '../repositories/in-memory-question-attachment-repository'
 
 let inMemoryQuestionRepository: InMemoryQuestionRepository
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let inmemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentRepository
 let sut : CreateQuestionUseCase
 
 describe('Create Question',()=>{
 
     beforeEach(()=>{
 
-        inMemoryQuestionRepository = new InMemoryQuestionRepository()
+        inMemoryQuestionRepository = new InMemoryQuestionRepository(inmemoryQuestionAttachmentRepository= new InMemoryQuestionAttachmentRepository())
         sut = new CreateQuestionUseCase(inMemoryQuestionRepository)
 
     })

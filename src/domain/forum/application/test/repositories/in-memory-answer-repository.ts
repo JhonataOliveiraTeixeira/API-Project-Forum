@@ -1,14 +1,16 @@
 import { PaginationParms } from "@/core/repositories/pagination-parms";
 import { AnswerRepository } from "../../repositories/answres-repository";
 import { Answer } from "@/domain/forum/enterprise/entities/answer";
+import { AnswerAttachmentRepository } from "../../repositories/answer-attachment-repository";
 
 export class InMemoryAnswerRepository implements AnswerRepository{
     public items: Answer[] = []
 
+    constructor(private answerAttachmentRepositooty: AnswerAttachmentRepository){}
 
-    async findByQuestionId(questionId: string , {page}: PaginationParms) {
+    async findByAnswerId(answerId: string , {page}: PaginationParms) {
         const answers = this.items
-        .filter((item) => item.questionId.toString() === questionId)
+        .filter((item) => item.questionId.toString() === answerId)
         .slice((page-1)* 20, page *20)
 
         return answers
@@ -34,6 +36,7 @@ export class InMemoryAnswerRepository implements AnswerRepository{
         const itemIndex = this.items.findIndex(item => item.id === answer.id)
 
         this.items.splice(itemIndex, 1)
+        this.answerAttachmentRepositooty.deleteManyByAnswerId(answer.id.toString())
     }
 
     async save(answer: Answer){

@@ -3,7 +3,10 @@ import { InMemoryAnswerRepository } from '../repositories/in-memory-answer-repos
 import { makeAnswer } from '../factories/make-answer'
 import { FecthQuestionAnswersUseCase } from '../../use-cases/fetch-question-answer/fetch-question-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { InMemoryAnswerAttachmentRepository } from '../repositories/in-memory-answer-attachment-repository'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentRepository
 let inMemoryAnswerRepository: InMemoryAnswerRepository
 let sut : FecthQuestionAnswersUseCase
 
@@ -11,7 +14,7 @@ describe('Fetch recent Answers',()=>{
 
     beforeEach(()=>{
 
-        inMemoryAnswerRepository = new InMemoryAnswerRepository()
+        inMemoryAnswerRepository = new InMemoryAnswerRepository(inMemoryAnswerAttachmentRepository = new InMemoryAnswerAttachmentRepository())
         sut = new FecthQuestionAnswersUseCase(inMemoryAnswerRepository)
 
     })

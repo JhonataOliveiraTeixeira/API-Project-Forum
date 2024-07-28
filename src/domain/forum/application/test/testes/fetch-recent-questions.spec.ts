@@ -2,7 +2,10 @@ import { expect, describe, beforeEach, it } from 'vitest'
 import { InMemoryQuestionRepository } from '../repositories/in-memory-question-repository'
 import { makeQuestion } from '../factories/make-question'
 import { FetchRecenteQuestionUseCase } from '../../use-cases/fetch-recent-questions/fetch-recent-questions'
+import { InMemoryQuestionAttachmentRepository } from '../repositories/in-memory-question-attachment-repository'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let inmemoryQuestionAttachmentRepository: InMemoryQuestionAttachmentRepository
 let inMemoryQuestionRepository: InMemoryQuestionRepository
 let sut : FetchRecenteQuestionUseCase
 
@@ -10,7 +13,7 @@ describe('Fetch recent Questions',()=>{
 
     beforeEach(()=>{
 
-        inMemoryQuestionRepository = new InMemoryQuestionRepository()
+        inMemoryQuestionRepository = new InMemoryQuestionRepository(inmemoryQuestionAttachmentRepository= new InMemoryQuestionAttachmentRepository())
         sut = new FetchRecenteQuestionUseCase(inMemoryQuestionRepository)
 
     })

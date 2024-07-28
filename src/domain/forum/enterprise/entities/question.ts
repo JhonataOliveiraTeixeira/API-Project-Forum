@@ -69,6 +69,7 @@ export class Question extends AggregateRoot<QuestionProps> {
 
   set attachments(attachment: QuestionAttachmentList){
     this.props.attachments = attachment
+    this.touch()
   }
 
   set content(content: string) {

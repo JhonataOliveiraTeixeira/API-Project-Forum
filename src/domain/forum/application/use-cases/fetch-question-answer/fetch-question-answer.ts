@@ -20,7 +20,7 @@ export class FecthQuestionAnswersUseCase {
 
     page
   }: FecthQuestionAnswersRequest) : Promise<FecthQuestionAnswersResponse> {
-   const answers= await this.answerRepository.findByQuestionId(questionId,{ page})
+   const answers= await this.answerRepository.findByAnswerId(questionId,{ page})
 
 
    return right({answers})
