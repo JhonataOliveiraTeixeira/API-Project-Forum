@@ -3,7 +3,7 @@ import { InMemoryQuestionRepository } from '../repositories/in-memory-question-r
 import { makeQuestion } from '../factories/make-question'
 import { EditQuestionUseCase } from '../../use-cases/edit-question/edit-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from '../../errors/not-allowed-error'
+import { NotAllowedError } from '../../../../../core/erros/errors/not-allowed-error'
 import { InMemoryQuestionAttachmentRepository } from '../repositories/in-memory-question-attachment-repository'
 import { makeQuestionAttachment } from '../factories/make-question-attachment'
 

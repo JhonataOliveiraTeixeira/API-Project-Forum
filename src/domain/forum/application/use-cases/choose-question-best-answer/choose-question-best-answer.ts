@@ -2,8 +2,8 @@ import { AnswerRepository } from '../../repositories/answres-repository'
 import { Question } from '@/domain/forum/enterprise/entities/question'
 import { QuestionsRepository } from '../../repositories/questions-repository'
 import { Either, left, right } from '@/core/either'
-import { ResourceNotFoundError } from '../../errors/resorce-not-found-error'
-import { NotAllowedError } from '../../errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../../core/erros/errors/resorce-not-found-error'
+import { NotAllowedError } from '../../../../../core/erros/errors/not-allowed-error'
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
   answerId: string

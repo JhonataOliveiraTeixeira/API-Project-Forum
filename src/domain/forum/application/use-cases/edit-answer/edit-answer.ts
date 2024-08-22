@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/either'
-import { NotAllowedError } from '../../errors/not-allowed-error'
-import { ResourceNotFoundError } from '../../errors/resorce-not-found-error'
+import { NotAllowedError } from '../../../../../core/erros/errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../../core/erros/errors/resorce-not-found-error'
 import { AnswerRepository } from '../../repositories/answres-repository'
 import { AnswerAttachmentList } from '@/domain/forum/enterprise/entities/answer-attachment-list'
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment'

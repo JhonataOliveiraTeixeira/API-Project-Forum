@@ -3,7 +3,7 @@ import { DeleteCommentOnAnswerUseCase } from '../../use-cases/delete-answer-comm
 import { makeAnswerComment } from '../factories/make-answer-comment'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { InMemoryAnswerCommentRepository } from '../repositories/in-memory-answer-comment-repository'
-import { NotAllowedError } from '../../errors/not-allowed-error'
+import { NotAllowedError } from '../../../../../core/erros/errors/not-allowed-error'
 
 let inMemoryAnswerCommentRepositoy: InMemoryAnswerCommentRepository
 let sut : DeleteCommentOnAnswerUseCase
