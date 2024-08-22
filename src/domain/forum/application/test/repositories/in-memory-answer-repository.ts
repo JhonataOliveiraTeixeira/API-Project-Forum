@@ -2,6 +2,7 @@ import { PaginationParms } from "@/core/repositories/pagination-parms";
 import { AnswerRepository } from "../../repositories/answres-repository";
 import { Answer } from "@/domain/forum/enterprise/entities/answer";
 import { AnswerAttachmentRepository } from "../../repositories/answer-attachment-repository";
+import { DomainEvents } from "@/core/events/domain-events";
 
 export class InMemoryAnswerRepository implements AnswerRepository{
     public items: Answer[] = []
@@ -30,6 +31,8 @@ export class InMemoryAnswerRepository implements AnswerRepository{
     
     async create(answer: Answer) {
         this.items.push(answer)
+
+        DomainEvents.dispatchEventsForAggregate(answer.id)
     }
     
     async delete(answer: Answer){
@@ -43,5 +46,6 @@ export class InMemoryAnswerRepository implements AnswerRepository{
         const itemIndex = this.items.findIndex(item => item.id === answer.id)
         
         this.items[itemIndex] = answer
+        DomainEvents.dispatchEventsForAggregate(answer.id)
     }
 }
